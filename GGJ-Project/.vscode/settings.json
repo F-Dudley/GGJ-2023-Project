@@ -1,0 +1,13 @@
+{
+	// General Options
+	"editor.formatOnSave": true,
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"[csharp]": {
+		"editor.defaultFormatter": "ms-dotnettools.csharp"
+		// Settings for C# Formatting in Omnisharp.json
+	},
+
+	// Prettier Options
+	"prettier.useTabs": true,
+	"prettier.tabWidth": 4
+}

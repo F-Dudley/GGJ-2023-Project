@@ -1,0 +1,9 @@
+{
+	"FormattingOptions": {
+		"organizeImports": true,
+		"removeUnusedImports": true,
+		"formatOnSave": true,
+		"UseTabs": true,
+		"IndentationSize": 4
+	}
+}
