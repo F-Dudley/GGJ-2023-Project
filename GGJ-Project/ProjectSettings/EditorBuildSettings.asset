@@ -9,15 +9,15 @@ EditorBuildSettings:
     path: Assets/Scenes/Initialiser.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
-    path: Assets/Scenes/HomeScene.unity
+    path: Assets/Scenes/Home.unity
     guid: 96147eba93ece904b9311d0c058ac6d0
   - enabled: 1
-    path: Assets/Scenes/LobbyScene.unity
+    path: Assets/Scenes/GameLobby.unity
     guid: 1ba0d4139d9e72147afba70c49f457b4
   - enabled: 1
-    path: Assets/Scenes/GameScene.unity
+    path: Assets/Scenes/GameRuntime.unity
     guid: 2349777bcb1e35644b8cb8502de04f8a
   - enabled: 1
-    path: Assets/Scenes/LoadingScene.unity
+    path: Assets/Scenes/Loading.unity
     guid: 346777678d0244649a2f548dc5975d2b
   m_configObjects: {}
