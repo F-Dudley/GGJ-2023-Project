@@ -1,9 +1,13 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Overgrown.GameServices.GameLobby;
+using Overgrown.GameServices.GameRelay;
 using Overgrown.Utils;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
 using Unity.Networking.Transport.Relay;
+using Unity.Services.Lobbies;
+using Unity.Services.Lobbies.Models;
 using Unity.Services.Relay;
 using Unity.Services.Relay.Models;
 using UnityEngine;
@@ -16,72 +20,69 @@ namespace Overgrown
 		{
 			public class Matchmaker : Singleton<Matchmaker>
 			{
-				[Header("Match Settings")]
-				[SerializeField] private bool isHost = false;
-				[SerializeField] private string joinCode = null;
+				[Header("Lobby")]
 
-				[Header("Relay References")]
-				//[SerializeField] private Allocation allocation = null;
-				[SerializeField] private UnityTransport clientTransportLayer = null;
+				[Header("Relay")]
+
+				[Header("Creation Settings")]
+				[SerializeField] private const int maxPlayerCount = 4;
+
+				[Header("Interface References")]
+				[SerializeField] private RelayServiceInterface relayServiceInterface = null;
+				[SerializeField] private LobbyServiceInterface lobbyServiceInterface = null;
 
 				#region Unity Functions
 				private void Start()
 				{
-					clientTransportLayer = NetworkManager.Singleton.GetComponent<UnityTransport>();
+					relayServiceInterface = RelayServiceInterface.Instance;
+					lobbyServiceInterface = LobbyServiceInterface.Instance;
 				}
 				#endregion
 
-				#region Relay Lifecycle
-				private async void CreateRelay(int maxPlayers)
+				#region Game Lifecycle
+
+				/// <summary>
+				/// Creates a Match for the Chosen Player Amount, Allocating a Lobby and Relay.
+				/// </summary>
+				/// <param name="lobbyName">The Chosen Lobby Name</param>
+				/// <param name="playerAmount">The Chosen Player Amount</param>
+				/// <returns></returns>
+				public async void CreateMatch(string lobbyName, int playerAmount)
 				{
-					try
-					{
-						Allocation allocation = await RelayService.Instance.CreateAllocationAsync(maxPlayers);
+					LimitPlayerAmount(ref playerAmount);
 
-						joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
-						isHost = true;
+					string joinCode = await relayServiceInterface.CreateRelay(playerAmount);
 
-						RelayServerData relayData = new(allocation, "dtls");
-
-						clientTransportLayer.SetRelayServerData(relayData);
-
-						NetworkManager.Singleton.StartHost();
-					}
-					catch (RelayServiceException e)
-					{
-						Debug.LogError(e);
-						throw e;
-					}
+					await lobbyServiceInterface.CreateLobby(lobbyName, playerAmount, joinCode);
 				}
 
-				private async void JoinRelay(string joinCode)
+				public async void QuickJoinMatch()
 				{
-					try
-					{
-						JoinAllocation joinAllocation = await RelayService.Instance.JoinAllocationAsync(joinCode);
-
-						RelayServerData relayData = new(joinAllocation, "dtls");
-
-						clientTransportLayer.SetRelayServerData(relayData);
-
-						NetworkManager.Singleton.StartClient();
-					}
-					catch (RelayServiceException e)
-					{
-						Debug.LogError(e);
-						throw e;
-					}
+					await lobbyServiceInterface.QuickJoinLobby();
+					await relayServiceInterface.JoinRelay(lobbyServiceInterface.GetJoinCode());
 				}
 
-				private async void LeaveRelay()
+				public async void JoinMatch(string lobbyName)
 				{
-					isHost = false;
+					await lobbyServiceInterface.JoinLobby(lobbyName);
+					await relayServiceInterface.JoinRelay(lobbyServiceInterface.GetJoinCode());
 				}
+
+				public async void LeaveMatch()
+				{
+					await lobbyServiceInterface.LeaveLobby();
+					await relayServiceInterface.LeaveRelay();
+				}
+
 				#endregion
 
-				#region Relay Events
-
-				#endregion
+				/// <summary>
+				/// Sanitises the Player Amount, so it cannot go out of max bounds.
+				/// </summary>
+				private void LimitPlayerAmount(ref int playerAmount)
+				{
+					if (playerAmount > maxPlayerCount) playerAmount = maxPlayerCount;
+				}
 			}
 		}
 	}

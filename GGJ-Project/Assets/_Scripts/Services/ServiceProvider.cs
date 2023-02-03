@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 
 namespace Overgrown
 {
-	namespace Services
+	namespace GameServices
 	{
 		public interface IServiceProvider
 		{
