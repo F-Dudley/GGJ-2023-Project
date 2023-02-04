@@ -37,6 +37,12 @@ namespace Overgrown
 					relayServiceInterface = RelayServiceInterface.Instance;
 					lobbyServiceInterface = LobbyServiceInterface.Instance;
 				}
+
+				private async void OnDestroy()
+				{
+					await relayServiceInterface.LeaveRelay();
+					await lobbyServiceInterface.LeaveLobby();
+				}
 				#endregion
 
 				#region Game Lifecycle
@@ -58,18 +64,31 @@ namespace Overgrown
 					NetworkManager.Singleton.SceneManager.LoadScene("GameLobby", UnityEngine.SceneManagement.LoadSceneMode.Single);
 				}
 
-				public async void QuickJoinMatch()
+				/// <summary>
+				/// Joins a Match, Found from current alloted lobbies.
+				/// </summary>
+				/// <returns></returns>
+				public async Task QuickJoinMatch()
 				{
 					await lobbyServiceInterface.QuickJoinLobby();
 					await relayServiceInterface.JoinRelay(lobbyServiceInterface.GetJoinCode());
 				}
 
-				public async void JoinMatch(string lobbyName)
+				/// <summary>
+				/// Joins a Match, Based on the Lobby ID.
+				/// </summary>
+				/// <param name="lobbyId">The Lobby ID of the Match to Join.</param>
+				/// <returns></returns>
+				public async Task JoinMatch(string lobbyId)
 				{
-					await lobbyServiceInterface.JoinLobby(lobbyName);
+					await lobbyServiceInterface.JoinLobby(lobbyId);
 					await relayServiceInterface.JoinRelay(lobbyServiceInterface.GetJoinCode());
 				}
 
+				/// <summary>
+				/// Leaves the Match, and Shutsdown the Current Network Process.
+				/// </summary>
+				/// <returns></returns>
 				public async void LeaveMatch()
 				{
 					await lobbyServiceInterface.LeaveLobby();

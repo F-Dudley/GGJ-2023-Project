@@ -48,6 +48,14 @@ namespace Overgrown
 					};
 				}
 
+				private async void OnDestroy()
+				{
+					heartbeatSource?.Cancel();
+					lobbyRefreshSource?.Cancel();
+					heartbeatSource?.Dispose();
+					lobbyRefreshSource?.Dispose();
+				}
+
 				#region Lobby Main Functions
 				public async Task<List<Lobby>> QueryFilteredLobbies()
 				{
@@ -71,7 +79,7 @@ namespace Overgrown
 						{
 							Data = new Dictionary<string, DataObject>
 							{
-								{ LobbyServiceKeys.JOIN_KEY, new DataObject(DataObject.VisibilityOptions.Member, "") },
+								{ LobbyServiceKeys.JOIN_KEY, new DataObject(DataObject.VisibilityOptions.Member, relayKey) },
 							},
 						};
 
