@@ -19,6 +19,13 @@ namespace Overgrown
 				[Header("Netcode References")]
 				[SerializeField] private UnityTransport transportLayer = null;
 
+				#region Unity Functions
+				private void Start()
+				{
+					transportLayer = NetworkManager.Singleton.GetComponent<UnityTransport>();
+				}
+				#endregion
+
 				#region Relay Lifecycle
 
 				/// <summary>

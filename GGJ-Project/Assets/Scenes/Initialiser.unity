@@ -182,9 +182,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8b04a9dffa9ca54fb9d0cdb1ca95609, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isHost: 0
-  joinCode: 
-  clientTransportLayer: {fileID: 0}
+  relayServiceInterface: {fileID: 0}
+  lobbyServiceInterface: {fileID: 0}
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -476,6 +475,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 950060604}
+  - component: {fileID: 950060605}
   m_Layer: 0
   m_Name: RelayService
   m_TagString: Untagged
@@ -498,6 +498,19 @@ Transform:
   m_Father: {fileID: 62743967}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &950060605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 950060603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceddf55da39fe114aa950647ca460c2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transportLayer: {fileID: 0}
 --- !u!1 &1852919477
 GameObject:
   m_ObjectHideFlags: 0
@@ -614,6 +627,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1976991336}
+  - component: {fileID: 1976991337}
   m_Layer: 0
   m_Name: LobbyService
   m_TagString: Untagged
@@ -636,3 +650,15 @@ Transform:
   m_Father: {fileID: 62743967}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1976991337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1976991335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb81351318120f649af591d684822413, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

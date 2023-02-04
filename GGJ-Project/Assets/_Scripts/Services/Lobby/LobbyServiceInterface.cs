@@ -111,6 +111,9 @@ namespace Overgrown
 				{
 					if (currentLobby == null) return;
 
+					heartbeatSource?.Cancel();
+					lobbyRefreshSource?.Cancel();
+
 					try
 					{
 						if (currentLobby.HostId == Authentication.PlayerId)

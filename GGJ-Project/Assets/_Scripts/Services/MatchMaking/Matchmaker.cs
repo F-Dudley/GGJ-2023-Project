@@ -54,6 +54,8 @@ namespace Overgrown
 					string joinCode = await relayServiceInterface.CreateRelay(playerAmount);
 
 					await lobbyServiceInterface.CreateLobby(lobbyName, playerAmount, joinCode);
+
+					NetworkManager.Singleton.SceneManager.LoadScene("GameLobby", UnityEngine.SceneManagement.LoadSceneMode.Single);
 				}
 
 				public async void QuickJoinMatch()
@@ -72,6 +74,8 @@ namespace Overgrown
 				{
 					await lobbyServiceInterface.LeaveLobby();
 					await relayServiceInterface.LeaveRelay();
+
+					NetworkManager.Singleton.Shutdown();
 				}
 
 				#endregion
