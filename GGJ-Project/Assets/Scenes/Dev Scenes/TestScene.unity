@@ -195,6 +195,21 @@ PrefabInstance:
       propertyPath: GlobalObjectIdHash
       value: 3618827304
       objectReference: {fileID: 0}
+    - target: {fileID: 6491253129283378896, guid: c60a01671c7d0bc44b59edb56b3d7498,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 6491253129283378896, guid: c60a01671c7d0bc44b59edb56b3d7498,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7390892177555536615, guid: c60a01671c7d0bc44b59edb56b3d7498,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -90
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c60a01671c7d0bc44b59edb56b3d7498, type: 3}
 --- !u!4 &184693255 stripped
@@ -456,7 +471,7 @@ GameObject:
   - component: {fileID: 1407207651}
   - component: {fileID: 1407207650}
   - component: {fileID: 1407207649}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}

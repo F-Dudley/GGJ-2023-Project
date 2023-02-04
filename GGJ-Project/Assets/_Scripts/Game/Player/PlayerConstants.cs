@@ -9,7 +9,7 @@ namespace Overgrown
 			public static class PlayerConstants
 			{
 				public const float GRAVITY_STRENGTH = 9.8f;
-				public const float MOVE_SPEED = 5f;
+				public const float MAX_MOVE_SPEED = 6f;
 			}
 		}
 	}

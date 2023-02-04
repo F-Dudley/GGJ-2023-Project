@@ -60,7 +60,6 @@ namespace Overgrown
 				#region Player Actions
 				public void OnMovement(InputAction.CallbackContext context)
 				{
-					Debug.Log("INVOKIGN MOVEMENT");
 					MoveEvent?.Invoke(context.ReadValue<Vector2>());
 				}
 
