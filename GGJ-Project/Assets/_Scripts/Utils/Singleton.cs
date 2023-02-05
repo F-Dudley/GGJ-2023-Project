@@ -68,7 +68,7 @@ namespace Overgrown
 				if (_instance == null)
 				{
 					_instance = this as T;
-					DontDestroyOnLoad(this.gameObject);
+					if (transform.parent == null) DontDestroyOnLoad(this.gameObject);
 				}
 				else
 				{

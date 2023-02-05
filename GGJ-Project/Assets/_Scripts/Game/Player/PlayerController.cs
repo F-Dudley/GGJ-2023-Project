@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Overgrown.GameCore.Input;
 using Overgrown.GameCore.Player;
+using Overgrown.GameCore.Spawning;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace Overgrown
@@ -10,7 +12,7 @@ namespace Overgrown
 	{
 		namespace Player
 		{
-			public class PlayerController : MonoBehaviour
+			public class PlayerController : NetworkBehaviour
 			{
 				[Header("Movement")]
 				[SerializeField] private float moveForce = 5.0f;
@@ -105,6 +107,20 @@ namespace Overgrown
 					{
 						moveVelocity.y = -1;
 					}
+				}
+
+				public void WarpPlayer(Vector3 position, Vector3 rotation)
+				{
+					controller.enabled = false;
+					transform.position = position;
+					transform.eulerAngles = rotation;
+					controller.enabled = true;
+				}
+
+				private void WarpPlayerToSpawnPoint()
+				{
+					Transform spawnPoint = PlayerSpawnPoints.Instance.GetSpawnPoint();
+					WarpPlayer(spawnPoint.position, spawnPoint.rotation.eulerAngles);
 				}
 				#endregion
 
