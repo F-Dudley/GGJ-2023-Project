@@ -47,17 +47,19 @@ namespace Overgrown
 				private void Start()
 				{
 					BindEventHandlers();
-
-					//PlayerManager.Instance.AddPlayerToTargetGroup(transform);
 				}
 
-				private void OnDestroy()
+				private new void OnDestroy()
 				{
+					base.OnDestroy();
+
 					UnBindEventHandlers();
 				}
 
 				private void FixedUpdate()
 				{
+					if (!IsOwner) return;
+
 					isGrounded = GroundCheck();
 
 					Movement();
